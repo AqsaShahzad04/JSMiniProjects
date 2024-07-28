@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO-List Project</title>
+    <style>
+        *{
+            font-family:Arial;
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+        body{
+            width:50%;
+            margin:auto;
+            position:relative;
+            top:80px;
+            background:url(../images/todolistbg.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+         .gridClass,
+         .container{
+          display:grid;
+          grid-template-columns:200px 150px 100px;
+          row-gap: 25px;
+          column-gap: 40px;
+          align-items: center;
+          text-align: center;
+          margin-top:10px;
+          background-color:bisque;
+         }
+         .gridClass{
+           
+            border-radius: 10px;
+         }
+         .container{
+            /* align-items: stretch; */
+            margin-top:5px;
+            
+         }
+         .deletebtn{
+            padding:8px;
+            margin-bottom:8px;
+            background-color: darkred;
+            color:white;
+            border:none;
+            border-radius: 5px;
+            font-size: 16px;
+         }
+         #input-box,.dueDate{
+            padding:8px;
+            margin-left:15px;
+            margin-top:5px;
+            border-radius:5px;
+            font-weight: bold;
+            border-color: black;
+            font-size: 16px;  
+         }
+         .add-btn{
+            padding:9px;
+            position:relative;
+            top:3px;
+            background-color: green;
+            border:none;
+            color:white;
+            border-radius: 5px;
+            font-size: 16px;
+         }
+
+
+    </style>
+</head>
+<body>
+    <!-- <h2>Make Your TODO-List</h2> -->
+    <div class="gridClass">
+     <input type="text" id="input-box" placeholder="Add your Tasks">
+     <input type="date" class="dueDate">
+     <button onclick="
+        addTodo();
+     " class="add-btn">Add Todo</button>
+     <div class="container"></div>
+    </div>
+    <script>
+         let resultBox=document.querySelector('.container');
+     let todoArray=[
+        {Todo:'Learn new skills',
+          dueDate:'2023-10-8'},
+        {Todo:'Learn coding',
+         dueDate:'2023-12-31'}
+        ];
+     renderingTodo();
+     function renderingTodo(){
+        resultBox.innerHTML='';
+        todoArray.forEach((object,index)=>{
+          let Html=`<div>${object.Todo}.</div>
+          <div>${object.dueDate}</div>
+          <button onclick="
+                todoArray.splice(${index},1);
+                 renderingTodo();
+          " class='deletebtn'>DeleteTodo</button>` 
+         resultBox.innerHTML+=Html;
+      
+        })
+     }
+     function addTodo(){
+       
+        let userValue=document.getElementById('input-box').value;
+        let todoDate=document.querySelector('.dueDate').value;
+
+         todoArray.push({
+            Todo:userValue,
+            dueDate:todoDate});
+         renderingTodo();
+         
+        document.getElementById('input-box').value='';
+        
+        }
+        
+         
+        
+
+
+
+   
+    </script>
+</body>
+</html>
